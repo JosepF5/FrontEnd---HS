@@ -7,6 +7,7 @@ interface Provider {
     phone: number;
 }
 
+
 export interface ProviderState {
     value: Provider[];
 }
@@ -14,6 +15,7 @@ export interface ProviderState {
 const initialState: ProviderState = {
     value: [],
 };
+
 
 export const providerSlice = createSlice({
     name: "provider",

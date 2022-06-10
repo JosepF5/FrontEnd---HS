@@ -1,19 +1,19 @@
 import React from 'react'
 
 interface ProviderCardTypes{
-    index: string;
-    name: string;
-    dni: number;
-    phone: number;
+    idProvider: string;
+    nameProvider: string;
+    dniProvider: number;
+    phoneProvider: number;
 }
 
-function ProviderCard({name,index,dni,phone}:ProviderCardTypes) {
+function ProviderCard({nameProvider,idProvider,dniProvider,phoneProvider}:ProviderCardTypes) {
   return (
     <div>
-        <h5>{name}</h5>
-        <h5>{index}</h5>
-        <h5>{dni}</h5>
-        <h5>{phone}</h5>
+        <h5>{nameProvider}</h5>
+        <h5>{idProvider}</h5>
+        <h5>{dniProvider}</h5>
+        <h5>{phoneProvider}</h5>
     </div>
   )
 }
