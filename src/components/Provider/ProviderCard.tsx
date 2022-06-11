@@ -1,19 +1,26 @@
-import React from 'react'
+import {useDispatch} from "react-redux";
+import {providerType} from '../../features/providerSlice'
+import {deleteProvider} from "../../features/providerSlice";
+import {removeProvider} from "../../actions/providerActions";
+function ProviderCard({nameProvider,
+  idProvider,
+  dniProvider,
+  phoneProvider}:providerType) {
 
-interface ProviderCardTypes{
-    idProvider: string;
-    nameProvider: string;
-    dniProvider: number;
-    phoneProvider: number;
-}
+  const dispatch = useDispatch()
+  const handleProvider = async () =>{
+    removeProvider(`${idProvider}`).then((res)=>{
+      if (res){
+        dispatch(deleteProvider(idProvider))
+      }
+  })}
 
-function ProviderCard({nameProvider,idProvider,dniProvider,phoneProvider}:ProviderCardTypes) {
   return (
     <div>
         <h5>{nameProvider}</h5>
-        <h5>{idProvider}</h5>
         <h5>{dniProvider}</h5>
         <h5>{phoneProvider}</h5>
+        <button onClick={() => handleProvider()}>DELETE</button>
     </div>
   )
 }

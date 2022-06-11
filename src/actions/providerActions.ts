@@ -1,13 +1,3 @@
-import { addProvider } from "../features/providerSlice"
-
-interface Provider {
-    idProvider: string;
-    nameProvider: string;
-    dniProvider: number;
-    phoneProvider: number;
-}
-
-
 const getAllProviders = async ()=>{
     const response = await fetch(`http://localhost:8080/get/providers`)
     const data = await response.json()
@@ -17,24 +7,30 @@ const getAllProviders = async ()=>{
 const postProvider = async (
     nameProvider: string,
     dniProvider: number,
-    phoneProvider: number,dispatch: any) => {
+    phoneProvider: number) => {
 
-  const provider={
-      nameProvider,
-      dniProvider,
-      phoneProvider,
-  }
   const response = await fetch(`http://localhost:8080/create/provider`,
   {
     method: 'POST',
     headers: {
       'Content-type': 'application/json'
     },
-    body: JSON.stringify(provider)
+    body: JSON.stringify({
+        nameProvider,
+        dniProvider,
+        phoneProvider,
+    })
   })
   const data = await response.json();
-  dispatch(addProvider(data))
+  return data
 }
-  
-  
-  export {getAllProviders, postProvider}
+
+const removeProvider = async (idProvider: string) => {
+    const response = await fetch(`http://localhost:8080/delete/provider/${idProvider}`,
+    {
+        method:'DELETE'
+    })
+    return response.ok
+}
+
+export {getAllProviders, postProvider, removeProvider}

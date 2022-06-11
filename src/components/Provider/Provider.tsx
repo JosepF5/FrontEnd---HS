@@ -1,13 +1,10 @@
 
-import React, { useState,useContext,useEffect  } from "react";
-import { useSelector,useDispatch } from "react-redux";
-import { RootState,AppDispatch,stateType  } from "../../app/store";
+import {useState,useEffect} from "react";
+import {useSelector,useDispatch} from "react-redux";
+import {RootState} from "../../app/store";
 import ProviderCard from "../Provider/ProviderCard";
-import { addProvider,
-   getProviders} from "../../features/providerSlice";
-import { postProvider,getAllProviders } from "../../actions/providerActions";
- 
-
+import {addProvider,getProviders} from "../../features/providerSlice";
+import {postProvider,getAllProviders} from "../../actions/providerActions";
 
 function Provider() {
   const [providerName, setProviderName] = useState("");
@@ -22,11 +19,9 @@ function Provider() {
   }
 
   const providers=useSelector(
-    (state:stateType)=>state.providers
+    (state:RootState)=>state.providers
   )
-  /*
-  const postsStatus=useSelector(getProviderStatus);
-  const error=useSelector(getProviderError);*/
+
   const dispatch=useDispatch();
 
   useEffect(()=>{
@@ -34,47 +29,29 @@ function Provider() {
         dispatch(getProviders(res));
     }
     )
-  }
-  ,[]);
+  },[]);
 
   const handleAddProviders=()=>{
     if(!providerName&&!providerDni&&!providerPhone)return;
-    /*
-    dispatch(addProvider({
-      id:(Math.random()*(1000)).toString(),
-      name:providerName,
-      dni:parseInt(providerDni),
-      phone:parseInt(providerPhone)
-      }))
-    */
-      postProvider(providerName,parseInt(providerDni),parseInt(providerPhone),dispatch)
+      postProvider(providerName,parseInt(providerDni),parseInt(providerPhone))
+      .then((res)=>{
+        dispatch(addProvider(res));
+      })
       setProviderName("")
       setProviderDni("")
       setProviderPhone("")
   }
-  /*
-  const data=getAllProviders();
-  console.log(data.then(res=>
-    res.data.map((provider:any)=>{
-        return {
-            id:provider.id,
-            name:provider.name,
-            dni:provider.dni,
-            phone:provider.phone
-        }
-        }
-    )));
-  console.log(providers);*/
   return (
     <div>
-       <h1>JEHISON GOD</h1>
+       <h1>PROVIDERS</h1>
       {providers.map((provider:providerType) => {
                 return (
                 <ProviderCard key={provider.idProvider}
                 nameProvider={provider.nameProvider} 
                 idProvider={provider.idProvider} 
                 dniProvider={provider.dniProvider} 
-                phoneProvider={provider.phoneProvider}/>)
+                phoneProvider={provider.phoneProvider}
+                />)
       })}
       <div className="reservation-input-container">
 
