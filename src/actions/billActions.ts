@@ -1,7 +1,7 @@
 import { productType } from "../features/productSlice";
 
 const getAllBills = async ()=>{
-    const response = await fetch(`http://localhost:8080/get/bills`)
+    const response = await fetch(`https://don-rauls.herokuapp.com/get/bills`)
     const data = await response.json()
     return data
 }
@@ -13,7 +13,7 @@ const postBill = async (
     productsBill: productType[],
     paymentBill: number,) => {
 
-  const response = await fetch(`http://localhost:8080/create/bill`,
+  const response = await fetch(`https://don-rauls.herokuapp.com/create/bill`,
   {
     method: 'POST',
     headers: {
@@ -32,7 +32,7 @@ const postBill = async (
 }
 
 const removeBill = async (idBill: string) => {
-    const response = await fetch(`http://localhost:8080/delete/bill/${idBill}`,
+    const response = await fetch(`https://don-rauls.herokuapp.com/delete/bill/${idBill}`,
     {
         method:'DELETE'
     })

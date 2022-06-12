@@ -8,10 +8,10 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Dropdown from "react-bootstrap/Dropdown";
-import { getProducts } from "../../features/productSlice";
-import { getAllProducts } from "../../actions/productActions";
+import { getProducts,updateProduct } from "../../features/productSlice";
+import { getAllProducts,putProduct } from "../../actions/productActions";
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 function Bill() {
   const [billDate, setBillDate] = useState("");
   const [billClient, setBillClient] = useState("");
@@ -19,7 +19,19 @@ function Bill() {
   const [billProducts, setBillProducts] = useState<productType[]>([]);
   const [billPayment, setBillPayment] = useState("");
   const [show, setShow] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [billchecked, setChecked] = useState(true);
+  const [prodName, setProdName] = useState("");
+  const [prodRequest, setProdRequest] = useState("");
+  const [tempProduct, setTempProduct] = useState<productType>({
+    idProduct: "",
+    nameProduct: "",
+    amountProduct: 0,
+    minAmountProduct: 0,
+    maxAmountProduct: 0,
+    providersProduct: "",
+    descriptionProduct: "",
+    priceProduct: 0,
+  });
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -44,7 +56,6 @@ function Bill() {
   };
   const products = useSelector((state: RootState) => state.products);
   const bills = useSelector((state: RootState) => state.bills);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -63,8 +74,7 @@ function Bill() {
       !billEmployee &&
       !billProducts &&
       !billPayment
-    )
-      return;
+    )return;
     postBill(
       billDate,
       billClient,
@@ -74,12 +84,43 @@ function Bill() {
     ).then((res) => {
       dispatch(addBill(res));
     });
+    putProduct(
+      tempProduct.idProduct,
+      tempProduct.nameProduct,
+      tempProduct.amountProduct-parseInt(prodRequest),
+      tempProduct.minAmountProduct,
+      tempProduct.maxAmountProduct,
+      tempProduct.providersProduct,
+      tempProduct.descriptionProduct,
+      tempProduct.priceProduct,
+    ).then((res) => {
+      dispatch(updateProduct(res));
+    })
     setBillDate("");
     setBillClient("");
     setBillEmployee("");
-    setBillProducts([]);
     setBillPayment("");
+    setProdRequest("");
+    setBillProducts([]);
     handleClose();
+  };
+
+  const handleProductsRequest = (e: any,product:productType) => {
+    console.log(e.target.value)
+    if(e.target.value<=product.amountProduct&&e.target.value&&e.target.value>0){
+      setChecked(false)
+      setBillPayment((e.target.value*product.priceProduct).toString())
+      setTempProduct(product)
+      setBillProducts([tempProduct])
+      //console.log(product)
+      //console.log(tempProduct)
+      console.log(billProducts)
+    }
+    else{
+      setChecked(true)
+      setBillPayment('')
+    }
+    setProdRequest(e.target.value)
   };
   return (
     <div>
@@ -127,16 +168,13 @@ function Bill() {
                 onChange={(e) => setBillPayment(e.target.value)}
                 type="number"
                 placeholder="Payment"
+                disabled
               />
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label htmlFor="disabledSelect">Product</Form.Label>
-              <Form.Select
-                id="disabledSelect"
-                onChange={(e) => {
-                  setBillProducts((prevProducts) => [...prevProducts]);
-                }}
-              >
+              <Form.Select id="disabledSelect" onChange={(e) => setProdName(e.target.value)}>
+                <option value="Default">Ninguno</option>
                 {products.map((product: productType) => (
                   <option key={product.idProduct} value={product.nameProduct}>
                     {product.nameProduct}
@@ -144,25 +182,38 @@ function Bill() {
                 ))}
               </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3">
-              {products.map((product: productType) => (
-                <Form.Check
-                  type={"checkbox"}
-                  id={`default-checkbox`}
-                  label={product.nameProduct}
-                  key={product.idProduct}
-                  onChange={(e) => setChecked(checked!)}
-                />
+            {products.filter(
+                (product: productType) => prodName === product.nameProduct
+              )
+              .map((product: productType) => (
+                <Form.Group className="mb-3" key={product.idProduct}>
+                  <Form.Label>{product.nameProduct}</Form.Label>
+                  <Form.Group>
+                  <Form.Label>Price: {product.priceProduct}</Form.Label>
+                  </Form.Group>
+                  <Form.Group>
+                    <Form.Label>(Currently {product.amountProduct}/{product.maxAmountProduct})</Form.Label>
+                  </Form.Group>
+                  <Row>
+                    <Col>
+                    <Form.Control
+                    value={prodRequest}
+                    onChange={(e)=>handleProductsRequest(e,product)}
+                    type="number"
+                    placeholder="Amount of products you want to buy"
+                    />
+                    </Col>
+                  </Row>
+                  
+                </Form.Group>
               ))}
-            </Form.Group>
-            <Form.Group className="mb-3">{}</Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleAddBills}>
+          <Button variant="primary" onClick={handleAddBills} disabled={billchecked}>
             Save
           </Button>
         </Modal.Footer>
@@ -170,12 +221,11 @@ function Bill() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>#</th>
             <th>Client</th>
             <th>Employee</th>
-            <th>Date</th>
-            <th>Products</th>
+            <th>Product</th>
             <th>Payment</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>

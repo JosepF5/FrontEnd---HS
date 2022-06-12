@@ -1,5 +1,5 @@
 const getAllProviders = async ()=>{
-    const response = await fetch(`http://localhost:8080/get/providers`)
+    const response = await fetch(`https://don-rauls.herokuapp.com/get/providers`)
     const data = await response.json()
     return data
 }
@@ -9,7 +9,7 @@ const postProvider = async (
     dniProvider: number,
     phoneProvider: number) => {
 
-  const response = await fetch(`http://localhost:8080/create/provider`,
+  const response = await fetch(`https://don-rauls.herokuapp.com/create/provider`,
   {
     method: 'POST',
     headers: {
@@ -26,7 +26,7 @@ const postProvider = async (
 }
 
 const removeProvider = async (idProvider: string) => {
-    const response = await fetch(`http://localhost:8080/delete/provider/${idProvider}`,
+    const response = await fetch(`https://don-rauls.herokuapp.com/delete/provider/${idProvider}`,
     {
         method:'DELETE'
     })
