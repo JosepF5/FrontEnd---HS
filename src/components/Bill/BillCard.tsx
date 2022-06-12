@@ -10,7 +10,7 @@ function BillCard({
   productsBill,
   idBill,
   paymentBill,
-}: billType) {
+}: billType,amount:number) {
   const dispatch = useDispatch();
 
   const handleBill = async () => {
@@ -23,10 +23,14 @@ function BillCard({
 
   return (
     <tr>
-      <td>{idBill}</td>
       <td>{clientBill}</td>
       <td>{employeeBill}</td>
-      <td>{dateBill}</td>
+      <td>{productsBill.map((product) =>
+        <div key={product.idProduct}>
+          {product.nameProduct}
+          <br />
+        </div>
+      )}</td>
       <td>{paymentBill}</td>
       <td><Button onClick={() => handleBill()} variant="danger">Delete</Button></td>
     </tr>

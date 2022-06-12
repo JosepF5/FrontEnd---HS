@@ -26,9 +26,20 @@ export const productSlice = createSlice({
       deleteProduct: (state, action) => {
         return state.filter((product) => product.idProduct != action.payload)
       },
+      updateProduct: (state, action) => {
+        return state.map((product) => {
+          if (product.idProduct === action.payload.idProduct) {
+            return {
+              ...product,
+              ...action.payload,
+            };
+          }
+          return product;
+        });
+      },
     },
   });
 
-  export const { addProduct,getProducts,deleteProduct } = productSlice.actions;
+  export const { addProduct,getProducts,deleteProduct,updateProduct } = productSlice.actions;
   export type {productType}
   export default productSlice.reducer;

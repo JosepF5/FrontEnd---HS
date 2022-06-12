@@ -27,7 +27,7 @@ function ProductCard({
     <tr>
       <td>{idProduct}</td>
       <td>{nameProduct}</td>
-      <td>{amountProduct}</td>
+      {amountProduct<=minAmountProduct?<td style={{color:'red'}}>{amountProduct}</td>:<td style={{color:'green'}}>{amountProduct}</td>}
       <td>{providersProduct}</td>
       <td>{priceProduct}</td>
       <td><Button onClick={() => handleProduct()} variant="danger">Delete</Button></td>

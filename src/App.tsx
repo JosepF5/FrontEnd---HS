@@ -58,6 +58,8 @@ function App() {
         <Route path="welcome" element={<Opening />}/>
         <Route path="product" element={<Product />} />
         <Route path="provider" element={<Provider />} />
+        <Route path="bill" element={<Bill />} />
+        <Route path="receipt" element={<Receipt />} />
       </Routes>
     </BrowserRouter>
     </div>
