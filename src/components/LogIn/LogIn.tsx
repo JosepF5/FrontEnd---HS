@@ -1,28 +1,25 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../../firebase/firebaseConfig";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logInInReducer } from "../../features/loggedInSlice";
 const LogIn: React.FunctionComponent = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const logInForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-
     if (userName && password) {
       signInWithEmailAndPassword(auth, userName, password)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log("**** user credentials ****");
-          console.log(userCredential);
-          console.log("**** user ***");
-          console.log(user);
+          dispatch(logInInReducer(user));
+          navigate("/welcome");
         })
         .catch((error) => {
           const errorCode = error.code;
-          const errorMessage = error.message;
-          console.log("*** Log in error ***");
-          console.log(errorMessage);
         });
       setPassword("");
       setUserName("");

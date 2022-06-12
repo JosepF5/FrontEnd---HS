@@ -4,6 +4,12 @@ const initialState = {
   user: null
 }
 
+interface IUser {
+      email: any
+      photoURL: any
+      displayName: any
+      uid: any
+}
 
 const loggedInSlice = createSlice(
   {
