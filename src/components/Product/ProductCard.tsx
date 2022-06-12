@@ -1,37 +1,38 @@
-import {useDispatch} from "react-redux";
-import {productType} from '../../features/productSlice'
-import {deleteProduct} from "../../features/productSlice";
-import {removeProduct} from "../../actions/productActions";
-function ProductCard({nameProduct,
+import { useDispatch } from "react-redux";
+import { productType } from "../../features/productSlice";
+import { deleteProduct } from "../../features/productSlice";
+import { removeProduct } from "../../actions/productActions";
+import Button from 'react-bootstrap/Button';
+function ProductCard({
+  nameProduct,
   amountProduct,
   minAmountProduct,
   maxAmountProduct,
   providersProduct,
   descriptionProduct,
   idProduct,
-  priceProduct}:productType) {
+  priceProduct,
+}: productType) {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
-
-  const handleProduct = async () =>{
-    removeProduct(`${idProduct}`).then((res)=>{
-      if (res){
-        dispatch(deleteProduct(idProduct))
+  const handleProduct = async () => {
+    removeProduct(`${idProduct}`).then((res) => {
+      if (res) {
+        dispatch(deleteProduct(idProduct));
       }
-  })}
+    });
+  };
 
   return (
-    <div>
-        <h5>{nameProduct}</h5>
-        <h5>{amountProduct}</h5>
-        <h5>{minAmountProduct}</h5>
-        <h5>{maxAmountProduct}</h5>
-        <h5>{providersProduct}</h5>
-        <h5>{descriptionProduct}</h5>
-        <h5>{priceProduct}</h5>
-        <button onClick={() => handleProduct()}>DELETE</button>
-    </div>
-  )
+    <tr>
+      <td>{idProduct}</td>
+      <td>{nameProduct}</td>
+      <td>{amountProduct}</td>
+      <td>{providersProduct}</td>
+      <td>{priceProduct}</td>
+      <td><Button onClick={() => handleProduct()} variant="danger">Delete</Button></td>
+    </tr>
+  );
 }
 
-export default ProductCard
+export default ProductCard;

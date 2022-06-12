@@ -2,6 +2,7 @@ import {useDispatch} from "react-redux";
 import {providerType} from '../../features/providerSlice'
 import {deleteProvider} from "../../features/providerSlice";
 import {removeProvider} from "../../actions/providerActions";
+import Button from 'react-bootstrap/Button';
 function ProviderCard({nameProvider,
   idProvider,
   dniProvider,
@@ -16,12 +17,12 @@ function ProviderCard({nameProvider,
   })}
 
   return (
-    <div>
-        <h5>{nameProvider}</h5>
-        <h5>{dniProvider}</h5>
-        <h5>{phoneProvider}</h5>
-        <button onClick={() => handleProvider()}>DELETE</button>
-    </div>
+    <tr>
+    <td>{nameProvider}</td>
+    <td>{dniProvider}</td>
+    <td>{phoneProvider}</td>
+    <td><Button onClick={() => handleProvider()} variant="danger">Delete</Button></td>
+    </tr>
   )
 }
 

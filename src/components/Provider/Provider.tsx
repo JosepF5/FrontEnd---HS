@@ -5,11 +5,18 @@ import {RootState} from "../../app/store";
 import ProviderCard from "../Provider/ProviderCard";
 import {addProvider,getProviders} from "../../features/providerSlice";
 import {postProvider,getAllProviders} from "../../actions/providerActions";
-
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
 function Provider() {
   const [providerName, setProviderName] = useState("");
   const [providerDni, setProviderDni] = useState("");
   const [providerPhone, setProviderPhone] = useState("");
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   type providerType = {
     idProvider: string,
@@ -40,11 +47,69 @@ function Provider() {
       setProviderName("")
       setProviderDni("")
       setProviderPhone("")
+      handleClose();
   }
   return (
     <div>
        <h1>PROVIDERS</h1>
-      {providers.map((provider:providerType) => {
+       <Button variant="success" onClick={handleShow}>
+        Create
+      </Button>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Create Provider</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="formBasicName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                value={providerName}
+                onChange={(e) => setProviderName(e.target.value)}
+                type="text"
+                placeholder="Name"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicDNI">
+              <Form.Label>DNI</Form.Label>
+              <Form.Control
+                value={providerDni}
+                onChange={(e) => setProviderDni(e.target.value)}
+                type="number"
+                placeholder="DNI"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPhone">
+              <Form.Label>Phone</Form.Label>
+              <Form.Control
+                value={providerPhone}
+                onChange={(e) => setProviderPhone(e.target.value)}
+                type="number"
+                placeholder="Phone"
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleAddProviders}>
+            Save
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>DNI</th>
+            <th>Phone</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+        {providers.map((provider:providerType) => {
                 return (
                 <ProviderCard key={provider.idProvider}
                 nameProvider={provider.nameProvider} 
@@ -53,25 +118,8 @@ function Provider() {
                 phoneProvider={provider.phoneProvider}
                 />)
       })}
-      <div className="reservation-input-container">
-
-        <p>Nombre</p>
-        <input
-            value={providerName}
-            onChange={(e)=>setProviderName(e.target.value)}
-        />
-        <p>DNI</p>
-        <input
-            value={providerDni}
-            onChange={(e)=>setProviderDni(e.target.value)}
-        />
-        <p>Telefono</p>
-        <input
-            value={providerPhone}
-            onChange={(e)=>setProviderPhone(e.target.value)}
-        />
-        <button onClick={handleAddProviders}>Add</button>
-      </div>
+        </tbody>
+      </Table>
     </div>
   )
 }
