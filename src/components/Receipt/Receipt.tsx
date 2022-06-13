@@ -12,6 +12,7 @@ import { getProducts, updateProduct } from "../../features/productSlice";
 import { getAllProducts, putProduct } from "../../actions/productActions";
 import { getProviders } from "../../features/providerSlice";
 import { getAllProviders } from "../../actions/providerActions";
+import { useNavigate } from "react-router-dom";
 
 function Receipt() {
   const [receiptDate, setReceiptDate] = useState("");
@@ -61,6 +62,9 @@ function Receipt() {
   const products = useSelector((state: RootState) => state.products);
   const providers = useSelector((state: RootState) => state.providers);
   const receipts = useSelector((state: RootState) => state.receipts);
+  
+  const {user}=useSelector((state: RootState) => state.logged)
+  const navigate=useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,6 +77,7 @@ function Receipt() {
     getAllProviders().then((res) => {
       dispatch(getProviders(res));
     });
+    (user===null?navigate("/welcome"):navigate("/receipt"));
   }, []);
 
   const handleAddReceipts = () => {
