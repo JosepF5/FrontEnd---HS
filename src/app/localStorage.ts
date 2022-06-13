@@ -1,15 +1,15 @@
-function getJugador() {
+function getUser() {
     return JSON.parse(String(localStorage.getItem("user")));
 }
 
-function nuevoJugador(user:string) {
-  let jugadores = localStorage.getItem("Jugador");
+function nuevoUser(user:string) {
+  let jugadores = localStorage.getItem("User");
 
   if (jugadores == null) {
-      localStorage.setItem("Jugador", user);
+      localStorage.setItem("User", user);
   } else {
       jugadores = JSON.parse(jugadores);
   }
 }
 
-export { getJugador, nuevoJugador };
+export { getUser, nuevoUser };
