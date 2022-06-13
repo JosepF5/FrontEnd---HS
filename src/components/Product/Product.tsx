@@ -12,6 +12,7 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import {getProviders} from "../../features/providerSlice";
 import {getAllProviders} from "../../actions/providerActions";
+import { useNavigate } from "react-router-dom";
 function Product() {
   const [productName, setProductName] = useState("");
   const [productAmount, setProductAmount] = useState("");
@@ -45,7 +46,8 @@ function Product() {
   const providers = useSelector((state: RootState) => state.providers);
   const products = useSelector((state: RootState) => state.products);
   
-
+  const {user}=useSelector((state: RootState) => state.logged)
+  const navigate=useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,6 +57,7 @@ function Product() {
     getAllProviders().then((res)=>{
       dispatch(getProviders(res));
     });
+    (user===null?navigate("/welcome"):navigate("/product"));
   }, []);
 
   const handleAddProducts = () => {

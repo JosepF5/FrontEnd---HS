@@ -21,6 +21,7 @@ const GoogleLogIn: React.FunctionComponent = () => {
           GoogleAuthProvider.credentialFromResult(result);
         const token = credential!.accessToken;
         const user = result.user;
+        console.log(user);
         dispatch(logInInReducer(user));
         navigate("/welcome");
       })
@@ -33,7 +34,7 @@ const GoogleLogIn: React.FunctionComponent = () => {
   };
   return (
     <div>
-      <button onClick={signInWithGoogleButton}>Log in with google</button>
+      <button onClick={signInWithGoogleButton}>Google</button>
     </div>
   );
 };

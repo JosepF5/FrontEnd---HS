@@ -3,6 +3,7 @@ import Provider from "./components/Provider/Provider";
 import Product from "./components/Product/Product";
 import LogIn from "./components/LogIn/LogIn";
 import GoogleLogIn from "./components/LogIn/GoogleLogIn";
+import GithubLogIn from "./components/LogIn/GitHubLogIn";
 import SignIn from "./components/LogIn/SignIn";
 import Bill from "./components/Bill/Bill";
 import Receipt from "./components/Receipt/Receipt";
@@ -43,6 +44,7 @@ function App() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+            <Nav.Link href="logInGithub">Log in with Github</Nav.Link>
             <Nav.Link href="logInGoogle">Log in with google</Nav.Link>
             <Nav.Link href="logIn">Log in</Nav.Link>
             <Nav.Link href="SignIn">Sign in</Nav.Link>
@@ -52,6 +54,7 @@ function App() {
     </Navbar>
       }
       <Routes>
+        <Route path="logInGithub" element={<GithubLogIn />}/>
         <Route path="logInGoogle" element={<GoogleLogIn />}/>
         <Route path="SignIn" element={<SignIn />}/>
         <Route path="logIn" element={<LogIn />}/>

@@ -9,6 +9,7 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 function Provider() {
   const [providerName, setProviderName] = useState("");
   const [providerDni, setProviderDni] = useState("");
@@ -29,13 +30,15 @@ function Provider() {
     (state:RootState)=>state.providers
   )
 
-  const dispatch=useDispatch();
+  const {user}=useSelector((state: RootState) => state.logged)
+  const navigate=useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(()=>{
     getAllProviders().then((res)=>{
         dispatch(getProviders(res));
-    }
-    )
+    });
+    (user===null?navigate("/welcome"):navigate("/provider"));
   },[]);
 
   const handleAddProviders=()=>{

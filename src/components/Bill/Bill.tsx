@@ -12,6 +12,7 @@ import { getProducts,updateProduct } from "../../features/productSlice";
 import { getAllProducts,putProduct } from "../../actions/productActions";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { useNavigate } from "react-router-dom";
 function Bill() {
   const [billDate, setBillDate] = useState("");
   const [billClient, setBillClient] = useState("");
@@ -56,6 +57,8 @@ function Bill() {
   };
   const products = useSelector((state: RootState) => state.products);
   const bills = useSelector((state: RootState) => state.bills);
+  const {user}=useSelector((state: RootState) => state.logged)
+  const navigate=useNavigate();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -65,6 +68,7 @@ function Bill() {
     getAllProducts().then((res) => {
       dispatch(getProducts(res));
     });
+    (user===null?navigate("/welcome"):navigate("/bill"));
   }, []);
 
   const handleAddBills = () => {
