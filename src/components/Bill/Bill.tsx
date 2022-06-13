@@ -13,6 +13,7 @@ import { getAllProducts,putProduct } from "../../actions/productActions";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { useNavigate } from "react-router-dom";
+import LogOut from "../LogIn/LogOut";
 function Bill() {
   const [billDate, setBillDate] = useState("");
   const [billClient, setBillClient] = useState("");
@@ -248,6 +249,7 @@ function Bill() {
           })}
         </tbody>
       </Table>
+      <LogOut/>
     </div>
   );
 }

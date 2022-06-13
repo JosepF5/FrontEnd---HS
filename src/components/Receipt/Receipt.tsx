@@ -13,6 +13,7 @@ import { getAllProducts, putProduct } from "../../actions/productActions";
 import { getProviders } from "../../features/providerSlice";
 import { getAllProviders } from "../../actions/providerActions";
 import { useNavigate } from "react-router-dom";
+import LogOut from "../LogIn/LogOut";
 
 function Receipt() {
   const [receiptDate, setReceiptDate] = useState("");
@@ -247,6 +248,7 @@ function Receipt() {
           })}
         </tbody>
       </Table>
+      <LogOut/>
     </div>
   );
 }

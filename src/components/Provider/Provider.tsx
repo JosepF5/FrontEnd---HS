@@ -10,6 +10,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
+import LogOut from "../LogIn/LogOut";
 function Provider() {
   const [providerName, setProviderName] = useState("");
   const [providerDni, setProviderDni] = useState("");
@@ -123,6 +124,7 @@ function Provider() {
       })}
         </tbody>
       </Table>
+      <LogOut/>
     </div>
   )
 }
