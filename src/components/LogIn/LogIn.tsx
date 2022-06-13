@@ -4,6 +4,10 @@ import { auth } from "../../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logInInReducer } from "../../features/loggedInSlice";
+import Button from "react-bootstrap/Button";
+import GoogleLogIn from "../LogIn/GoogleLogIn";
+import GithubLogIn from "../LogIn/GitHubLogIn";
+
 const LogIn: React.FunctionComponent = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -47,8 +51,15 @@ const LogIn: React.FunctionComponent = () => {
           value={password}
         />
         <br />
-        <button onClick={(e) => logInForm(e)}>Log In</button>
         <br />
+        <Button variant="primary" onClick={(e) => logInForm(e)}>
+        Log In
+      </Button>
+        <br />
+        <br />
+        <GoogleLogIn />
+        <br />
+        <GithubLogIn />
       </form>
     </div>
   );

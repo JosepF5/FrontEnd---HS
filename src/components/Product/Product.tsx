@@ -8,11 +8,10 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import Dropdown from "react-bootstrap/Dropdown";
 import {getProviders} from "../../features/providerSlice";
 import {getAllProviders} from "../../actions/providerActions";
 import { useNavigate } from "react-router-dom";
+import LogOut from "../LogIn/LogOut";
 function Product() {
   const [productName, setProductName] = useState("");
   const [productAmount, setProductAmount] = useState("");
@@ -207,6 +206,7 @@ function Product() {
           })}
         </tbody>
       </Table>
+      <LogOut/>
     </div>
   );
 }

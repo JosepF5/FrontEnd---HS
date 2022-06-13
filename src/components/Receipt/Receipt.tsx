@@ -123,11 +123,8 @@ function Receipt() {
     ) {
       setChecked(false)
       setReceiptAmount(e.target.value)
-      //setReceiptPayment((e.target.value*product.priceProduct).toString())
       setTempProduct(product)
-      //setReceiptProducts([tempProduct])
       console.log(tempProduct)
-      //console.log(receiptProducts)
     } else {
       setChecked(true)
       setReceiptAmount('')

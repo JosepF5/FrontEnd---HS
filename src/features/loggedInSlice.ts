@@ -4,21 +4,13 @@ const initialState = {
   user: null
 }
 
-interface IUser {
-      email: any
-      photoURL: any
-      displayName: any
-      uid: any
-}
-
 const loggedInSlice = createSlice(
   {
     name: 'logged',
     initialState,
     reducers:{
       logInInReducer(state, action){
-        const stateLoggedIn = {...state, user: action.payload}
-        return stateLoggedIn
+        return {...state, user: action.payload}
       },
       logOutInReducer(){
         return {user: null}

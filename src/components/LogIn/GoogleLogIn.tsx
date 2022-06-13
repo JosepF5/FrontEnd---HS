@@ -7,7 +7,7 @@ import {
 import { useDispatch } from "react-redux";
 import { logInInReducer } from "../../features/loggedInSlice";
 import { useNavigate } from "react-router-dom";
-
+import Button from "react-bootstrap/Button";
 const providerGoogleAuth = new GoogleAuthProvider();
 
 const GoogleLogIn: React.FunctionComponent = () => {
@@ -34,7 +34,9 @@ const GoogleLogIn: React.FunctionComponent = () => {
   };
   return (
     <div>
-      <button onClick={signInWithGoogleButton}>Google</button>
+      <Button variant="primary" onClick={signInWithGoogleButton}>
+      Google
+      </Button>
     </div>
   );
 };

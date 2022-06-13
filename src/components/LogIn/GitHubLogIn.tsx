@@ -7,12 +7,14 @@ import {
 import { useDispatch } from "react-redux";
 import { logInInReducer } from "../../features/loggedInSlice";
 import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 const providerGithubAuth = new GithubAuthProvider();
 
 const GitHubLogIn: React.FunctionComponent = () =>{
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
 
   const signInWithGithubButton = () => {
     signInWithPopup(auth, providerGithubAuth)
@@ -21,7 +23,6 @@ const GitHubLogIn: React.FunctionComponent = () =>{
         GithubAuthProvider.credentialFromResult(result);
         const token = credential!.accessToken;
         const user = result.user;
-        console.log(user);
         dispatch(logInInReducer(user));
         navigate("/welcome");
       })
@@ -34,7 +35,9 @@ const GitHubLogIn: React.FunctionComponent = () =>{
   };
   return (
     <div>
-      <button onClick={signInWithGithubButton}>Github</button>
+      <Button variant="primary" onClick={signInWithGithubButton}>
+      Github
+      </Button>
     </div>
   )
 }

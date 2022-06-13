@@ -1,4 +1,3 @@
-import React from "react";
 import Provider from "./components/Provider/Provider";
 import Product from "./components/Product/Product";
 import LogIn from "./components/LogIn/LogIn";
@@ -15,6 +14,8 @@ import Navbar from "react-bootstrap/Navbar";
 import "./App.css";
 import { RootState } from "../src/app/store";
 import { useSelector } from "react-redux";
+
+
 function App() {
   const {user} = useSelector((state:RootState) => state.logged)
   
@@ -28,11 +29,11 @@ function App() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="welcome">Welcome</Nav.Link>
-            <Nav.Link href="bill">Bill</Nav.Link>
-            <Nav.Link href="receipt">Receipt</Nav.Link>
-            <Nav.Link href="product">Product</Nav.Link>
-            <Nav.Link href="provider">Provider</Nav.Link>
+            <Link to="welcome"><Nav.Link href="welcome">Welcome</Nav.Link></Link>
+            <Link to="bill"><Nav.Link href="bill">Bill</Nav.Link></Link>
+            <Link to="receipt"><Nav.Link href="receipt">Receipt</Nav.Link></Link>
+            <Link to="product"><Nav.Link href="product">Product</Nav.Link></Link>
+            <Link to="provider"><Nav.Link href="provider">Provider</Nav.Link></Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -44,8 +45,6 @@ function App() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="logInGithub">Log in with Github</Nav.Link>
-            <Nav.Link href="logInGoogle">Log in with google</Nav.Link>
             <Nav.Link href="logIn">Log in</Nav.Link>
             <Nav.Link href="SignIn">Sign in</Nav.Link>
           </Nav>
@@ -54,8 +53,6 @@ function App() {
     </Navbar>
       }
       <Routes>
-        <Route path="logInGithub" element={<GithubLogIn />}/>
-        <Route path="logInGoogle" element={<GoogleLogIn />}/>
         <Route path="SignIn" element={<SignIn />}/>
         <Route path="logIn" element={<LogIn />}/>
         <Route path="welcome" element={<Opening />}/>
@@ -66,31 +63,6 @@ function App() {
       </Routes>
     </BrowserRouter>
     </div>
-    /*
-    <BrowserRouter>
-      <Navbar bg="ligth" expand="lg">
-        <Container>
-          <Navbar.Brand href="">Don Raul’s Hardware store</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="bill">Bill</Nav.Link>
-              <Nav.Link href="receipt">Receipt</Nav.Link>
-              <Nav.Link href="product">Product</Nav.Link>
-              <Nav.Link href="provider">Provider</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      <Routes>
-        <Route path="/" element={<Opening />} />
-        <Route path="/bill" element={<Bill />} />
-        <Route path="/receipt" element={<Receipt />} />
-        <Route path="/product" element={<Product />} />
-        <Route path="/provider" element={<Provider />} />
-      </Routes>
-    </BrowserRouter>*/
   );
 }
 

@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { auth } from "../../firebase/firebaseConfig";
-
+import Button from "react-bootstrap/Button";
 function SignIn() {
     
   const [userName, setUserName] = useState("");
@@ -50,7 +50,9 @@ function SignIn() {
           value={password}
         />
         <br />
-        <button onClick={(e) => signInForm(e)}>Sign in</button>
+        <Button variant="primary" onClick={(e) => signInForm(e)}>
+        Sign in
+      </Button>
         <br />
       </form>
     </div>
